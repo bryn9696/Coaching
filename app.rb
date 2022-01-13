@@ -24,8 +24,29 @@ class Coaching < Sinatra::Base
     erb :login
   end
 
+  post '/user_details' do
+    session[:username] = params[:username]
+    session[:password] = params[:password]
+    redirect '/home'
+  end
+
   get '/sign_up' do
     erb :sign_up
+  end
+
+  post '/sign_up_details' do
+    if User.unique_username(params[:username]) == true
+      flash[:notice] = 'Thanks for signing up to Coaching'
+      User.create_user(params[:username], params[:password], params[:email], params[:phone_number])
+      redirect '/login'
+    else
+      flash[:notice] = 'This username has been taken - please choose a different one!'
+      redirect '/sign_up'
+    end
+  end
+
+  get '/home' do
+    erb :home
   end
 
 end
