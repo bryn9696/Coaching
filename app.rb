@@ -1,10 +1,10 @@
 require 'sinatra/base'
 require 'sinatra/flash'
 require 'sinatra/reloader'
-#require './database_connection_setup'
+require './database_connection_setup'
 #require './lib/bookings'
 #require_relative './lib/coaching'
-#require './lib/user'
+require './lib/user'
 #require_relative './lib/update'
 
 # App class
@@ -18,6 +18,14 @@ class Coaching < Sinatra::Base
 
   get '/' do
     erb :index
+  end
+
+  get '/login' do
+    erb :login
+  end
+
+  get '/sign_up' do
+    erb :sign_up
   end
 
 end
